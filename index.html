@@ -1,0 +1,1096 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>December Cut Log</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* Layout: one phone column. Countdown first, then today's six checks, the 59-day grid, and the plan underneath. */
+  :root {
+    --bg: #EDF0EB;
+    --surface: #FAFBF8;
+    --surface-2: #E2E7DF;
+    --line: #D3D9D0;
+    --ink: #141C18;
+    --muted: #55635B;
+    --faint: #8A968F;
+    --accent: #2457E0;
+    --on-accent: #FFFFFF;
+    --accent-soft: #DAE3FA;
+    --good: #1C8A57;
+    --good-ink: #0F5E38;
+    --good-soft: #CFE9DB;
+    --on-good: #FFFFFF;
+    --warn-ink: #7A4E04;
+    --warn-soft: #F3E3C0;
+    --display: 'Big Shoulders Display', 'Arial Narrow', Impact, sans-serif;
+    --body: 'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0E1411;
+      --surface: #161D19;
+      --surface-2: #1F2823;
+      --line: #28332D;
+      --ink: #E7EEE9;
+      --muted: #93A19A;
+      --faint: #5F6D66;
+      --accent: #7C9DFF;
+      --on-accent: #0B1020;
+      --accent-soft: #1C2748;
+      --good: #4FC48A;
+      --good-ink: #7BE0AA;
+      --good-soft: #17372A;
+      --on-good: #08150E;
+      --warn-ink: #E3B04B;
+      --warn-soft: #3A2E12;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0E1411;
+    --surface: #161D19;
+    --surface-2: #1F2823;
+    --line: #28332D;
+    --ink: #E7EEE9;
+    --muted: #93A19A;
+    --faint: #5F6D66;
+    --accent: #7C9DFF;
+    --on-accent: #0B1020;
+    --accent-soft: #1C2748;
+    --good: #4FC48A;
+    --good-ink: #7BE0AA;
+    --good-soft: #17372A;
+    --on-good: #08150E;
+    --warn-ink: #E3B04B;
+    --warn-soft: #3A2E12;
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 16px;
+    line-height: 1.45;
+    -webkit-font-smoothing: antialiased;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    padding-block: 8px 108px;
+    overflow-x: hidden;
+  }
+  .wrap { max-width: 520px; margin: 0 auto; }
+  button { font-family: inherit; }
+
+  .top { display: flex; align-items: baseline; justify-content: space-between; padding: 12px 0 8px; }
+  .top h1 { font-family: var(--display); font-weight: 800; font-size: 28px; letter-spacing: 0.01em; margin: 0; }
+  .top .today { color: var(--muted); font-size: 14px; }
+
+  /* Hero countdown */
+  .hero { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 20px 20px 18px; margin-top: 4px; }
+  .hero-label { color: var(--muted); font-size: 14px; }
+  .hero-num {
+    font-family: var(--display); font-weight: 800;
+    font-size: clamp(96px, 32vw, 148px); line-height: 0.82; letter-spacing: -0.01em;
+    margin: 12px 0 14px; font-variant-numeric: tabular-nums;
+  }
+  .hero-meta { display: flex; flex-wrap: wrap; gap: 4px 16px; color: var(--muted); font-size: 14px; }
+  .hero-meta b { color: var(--ink); font-weight: 600; }
+  .rail { height: 6px; background: var(--surface-2); border-radius: 3px; margin-top: 16px; overflow: hidden; }
+  .rail i { display: block; height: 100%; background: var(--accent); border-radius: 3px; }
+
+  /* Notes */
+  .notes { display: flex; flex-direction: column; gap: 8px; margin-top: 14px; }
+  .notes:empty { display: none; }
+  .note { padding: 12px 14px; border-radius: 10px; font-size: 14px; background: var(--accent-soft); }
+  .note.warn { background: var(--warn-soft); color: var(--warn-ink); }
+  .note b { font-weight: 600; }
+  .note .link { display: block; margin-top: 6px; }
+  button.link { background: none; border: 0; padding: 0; min-height: 32px; font-size: 14px; font-weight: 600; color: var(--accent); cursor: pointer; text-align: left; }
+  .note.warn button.link { color: var(--warn-ink); }
+  button.link:focus-visible, .check:focus-visible, .cell:focus-visible, .tabbar button:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  /* Sections */
+  .block { margin-top: 26px; }
+  .block > h2 { font-size: 15px; font-weight: 600; margin: 0 0 10px; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+  .block > h2 small { font-weight: 400; color: var(--muted); font-size: 13px; }
+
+  .session { padding: 10px 0 12px; display: flex; flex-direction: column; gap: 2px; }
+  .session strong { font-size: 18px; font-weight: 600; }
+  .session span { color: var(--muted); font-size: 14px; }
+
+  .checks { border-top: 1px solid var(--line); }
+  .check {
+    display: flex; align-items: center; gap: 14px; width: 100%; min-height: 56px; padding: 8px 2px;
+    background: none; border: 0; border-bottom: 1px solid var(--line);
+    color: var(--ink); font-size: 16px; text-align: left; cursor: pointer; -webkit-tap-highlight-color: transparent;
+  }
+  .check .box { flex: none; width: 26px; height: 26px; border-radius: 8px; border: 2px solid var(--faint); display: grid; place-items: center; transition: background 0.15s, border-color 0.15s; }
+  .check .box svg { width: 16px; height: 16px; stroke: var(--on-good); opacity: 0; }
+  .check[aria-pressed="true"] .box { background: var(--good); border-color: var(--good); }
+  .check[aria-pressed="true"] .box svg { opacity: 1; }
+  .check[aria-pressed="true"] .label { color: var(--muted); }
+  .check:disabled { opacity: 0.55; cursor: default; }
+
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 22px; }
+  .stat .n { font-family: var(--display); font-weight: 800; font-size: 44px; line-height: 1; font-variant-numeric: tabular-nums; }
+  .stat .l { color: var(--muted); font-size: 13px; margin-top: 4px; }
+
+  /* 59-day grid: columns are weeks, rows are Monday to Sunday */
+  .cal { display: flex; gap: 8px; align-items: flex-start; }
+  .cal-days { display: grid; grid-template-rows: repeat(7, 22px); gap: 4px; color: var(--muted); font-size: 11px; align-items: center; margin-top: 20px; }
+  .cal-main { flex: 1; min-width: 0; }
+  .cal-months { display: grid; gap: 4px; height: 16px; margin-bottom: 4px; font-size: 11px; color: var(--muted); }
+  .cal-grid { display: grid; grid-template-rows: repeat(7, 22px); grid-auto-flow: column; gap: 4px; }
+  .cell { display: block; padding: 0; border-radius: 5px; border: 1px solid transparent; background: transparent; }
+  .cell.in { border-color: var(--line); }
+  .cell.full { background: var(--good); border-color: var(--good); }
+  .cell.part { background: var(--good-soft); border-color: var(--good); }
+  .cell.miss { background: var(--surface-2); border-color: var(--line); }
+  .cell.today { box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--accent); }
+  .cell.sel { box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--ink); }
+  button.cell { cursor: pointer; -webkit-tap-highlight-color: transparent; }
+  .legend { display: flex; flex-wrap: wrap; gap: 6px 14px; margin-top: 14px; color: var(--muted); font-size: 12px; }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .legend i { width: 12px; height: 12px; border-radius: 3px; border: 1px solid var(--line); display: inline-block; }
+  .legend i.full { background: var(--good); border-color: var(--good); }
+  .legend i.part { background: var(--good-soft); border-color: var(--good); }
+  .legend i.miss { background: var(--surface-2); }
+
+  details.plan { margin-top: 26px; border-top: 1px solid var(--line); }
+  details.plan summary { font-weight: 600; font-size: 15px; cursor: pointer; min-height: 48px; display: flex; align-items: center; }
+  details.plan h3 { font-size: 13px; font-weight: 600; color: var(--muted); margin: 16px 0 6px; }
+  details.plan dl { display: grid; grid-template-columns: 76px 1fr; gap: 6px 14px; margin: 0; font-size: 14px; }
+  details.plan dt { color: var(--muted); }
+  details.plan dd { margin: 0; }
+  details.plan p { margin: 0 0 8px; font-size: 14px; }
+
+  /* Forms */
+  .form { display: grid; gap: 12px; margin-bottom: 8px; }
+  .row { display: flex; gap: 12px; }
+  .field { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+  .field label { font-size: 13px; color: var(--muted); }
+  .field input { height: 48px; padding: 0 12px; font: inherit; font-size: 16px; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 10px; width: 100%; }
+  .field input:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .btn { height: 50px; border: 0; border-radius: 10px; background: var(--accent); color: var(--on-accent); font-size: 16px; font-weight: 600; cursor: pointer; }
+  .btn:active { opacity: 0.85; }
+  .btn:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+
+  /* Body tab */
+  .pace { margin: 0 0 4px; }
+  .cp { padding: 14px 0; border-top: 1px solid var(--line); }
+  .cp:last-child { border-bottom: 1px solid var(--line); }
+  .cp-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+  .cp-head b { font-size: 15px; font-weight: 600; }
+  .cp-head span { color: var(--muted); font-size: 13px; text-align: right; }
+  .cp-body { color: var(--muted); font-size: 14px; margin-top: 4px; }
+  .bar { height: 6px; border-radius: 3px; background: var(--surface-2); margin-top: 10px; overflow: hidden; }
+  .bar i { display: block; height: 100%; background: var(--good); border-radius: 3px; }
+  .chip { display: inline-block; font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: 20px; background: var(--surface-2); color: var(--muted); }
+  .chip.good { background: var(--good-soft); color: var(--good-ink); }
+  .chip.warn { background: var(--warn-soft); color: var(--warn-ink); }
+  .chart svg { width: 100%; height: auto; display: block; }
+  .chart .grid { stroke: var(--line); stroke-width: 1; fill: none; }
+  .chart .axis { fill: var(--muted); font-size: 11px; font-family: var(--body); }
+  .chart .plan-line { stroke: var(--faint); stroke-width: 1.5; stroke-dasharray: 5 4; fill: none; }
+  .chart .mark { stroke: var(--faint); stroke-width: 1; stroke-dasharray: 2 3; fill: none; }
+  .chart .actual { stroke: var(--accent); stroke-width: 2.5; stroke-linejoin: round; stroke-linecap: round; fill: none; }
+  .chart .dot { fill: var(--accent); stroke: none; }
+  .chart .dot-last { fill: var(--bg); stroke: var(--accent); stroke-width: 3; }
+  .chart .val { fill: var(--ink); font-size: 12px; font-weight: 600; font-family: var(--body); }
+  .chart-key { display: flex; gap: 16px; color: var(--muted); font-size: 12px; margin-top: 6px; }
+  .scroll-x { overflow-x: auto; }
+  .tbl { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .tbl th { text-align: left; font-weight: 500; color: var(--muted); font-size: 13px; padding: 0 8px 8px 0; }
+  .tbl td { padding: 10px 8px 10px 0; border-top: 1px solid var(--line); font-variant-numeric: tabular-nums; }
+
+  /* Points */
+  .check .pts { margin-left: auto; flex: none; font-size: 12px; font-weight: 600; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .score { display: flex; align-items: center; gap: 14px; padding: 2px 0 14px; }
+  .score-bar { position: relative; flex: 1; height: 6px; border-radius: 3px; background: var(--surface-2); }
+  .score-bar i { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 3px; background: var(--accent); transition: width 0.2s; }
+  .score-bar.ok i { background: var(--good); }
+  .score-bar b { position: absolute; top: -5px; bottom: -5px; width: 2px; border-radius: 1px; background: var(--ink); }
+  .score .chip { white-space: nowrap; }
+
+  /* Glow */
+  .g-sub { color: var(--muted); font-size: 14px; margin: 12px 0 0; }
+  .g-top { display: flex; gap: 20px; align-items: center; margin-top: 10px; }
+  .g-big { flex: none; font-family: var(--display); font-weight: 800; font-size: 76px; line-height: 0.85; color: var(--good); font-variant-numeric: tabular-nums; }
+  .g-big small { display: block; font-family: var(--body); font-size: 13px; font-weight: 600; color: var(--muted); margin-top: 10px; }
+  .g-info { flex: 1; min-width: 0; }
+  .g-info b { display: block; font-size: 15px; font-weight: 600; }
+  .g-streak { color: var(--muted); font-size: 13px; margin-top: 2px; }
+  .g-info .rail { margin-top: 12px; }
+  .rail.good i { background: var(--good); transition: width 0.25s; }
+  #g-back:not(:empty) { margin-bottom: 4px; }
+  .g-grp { margin: 16px 0 2px; font-weight: 600; color: var(--muted); font-size: 13px; }
+  .g-grp:first-child { margin-top: 4px; }
+  .check.g { align-items: flex-start; padding: 12px 2px; min-height: 52px; }
+  .check.g .box { margin-top: 1px; }
+  .check.g .label { flex: 1; min-width: 0; }
+  .check.g[aria-pressed="true"] .label { text-decoration: line-through; }
+  .g-opt { display: inline-block; font-size: 11px; font-weight: 600; padding: 1px 7px; margin-left: 8px; border-radius: 20px; background: var(--warn-soft); color: var(--warn-ink); text-decoration: none; vertical-align: 1px; }
+  .g-hint { color: var(--muted); font-size: 14px; margin: 12px 2px 0; }
+  .g-grid { display: grid; grid-template-columns: repeat(14, 1fr); gap: 4px; }
+  .gcell { aspect-ratio: 1; padding: 0; border: 1px solid var(--line); border-radius: 5px; background: var(--surface-2); color: var(--muted); font-size: 10px; font-variant-numeric: tabular-nums; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+  .gcell.p { background: var(--good-soft); border-color: var(--good); color: var(--ink); }
+  .gcell.f { background: var(--good); border-color: var(--good); color: var(--on-good); }
+  .gcell.x { background: transparent; opacity: 0.55; cursor: default; }
+  .gcell.t { box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--accent); }
+  .gcell.s { box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--ink); }
+  .gcell:focus-visible, .check.g:focus-visible, #g-reset:focus-visible, #g-start:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .g-tl { list-style: none; margin: 0; padding: 0; }
+  .g-tl li { padding: 10px 10px 10px 14px; margin-left: 4px; border-left: 3px solid var(--line); }
+  .g-tl li.now { border-color: var(--warn-ink); background: var(--warn-soft); border-radius: 0 10px 10px 0; }
+  .g-tl li.past { border-color: var(--good); }
+  .g-tl b { display: block; font-size: 15px; font-weight: 600; }
+  .g-tl span { color: var(--muted); font-size: 14px; }
+  .g-tl li.now span { color: var(--ink); }
+  .g-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; color: var(--muted); font-size: 14px; }
+  .g-foot label { display: flex; align-items: center; gap: 8px; }
+  .g-foot input[type=date] { height: 44px; padding: 0 10px; font: inherit; font-size: 15px; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
+  .g-foot button { height: 44px; padding: 0 14px; font: inherit; font-size: 14px; color: var(--ink); background: transparent; border: 1px solid var(--line); border-radius: 10px; cursor: pointer; }
+
+  /* Photos */
+  .photo-add { display: flex; align-items: center; justify-content: center; min-height: 72px; border: 1.5px dashed var(--faint); border-radius: 14px; color: var(--muted); font-size: 15px; cursor: pointer; margin-bottom: 16px; }
+  .photo-add input { display: none; }
+  .photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .photo-tile { position: relative; aspect-ratio: 3 / 4; max-width: 100%; border-radius: 8px; overflow: hidden; background: var(--surface-2); }
+  .photo-tile img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .photo-tile .pdate { position: absolute; left: 0; right: 0; bottom: 0; padding: 14px 6px 4px; font-size: 11px; color: #fff; background: linear-gradient(transparent, rgba(0, 0, 0, 0.7)); }
+
+  .empty { color: var(--muted); font-size: 14px; padding: 14px 0; }
+
+  /* Tab bar */
+  .tabbar {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 10;
+    background: var(--surface); border-top: 1px solid var(--line);
+    padding: 6px max(16px, env(safe-area-inset-right, 0px)) calc(6px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
+  }
+  .tabbar .in { max-width: 520px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); }
+  .tabbar button { background: none; border: 0; min-height: 52px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; font-size: 12px; color: var(--muted); cursor: pointer; -webkit-tap-highlight-color: transparent; }
+  .tabbar button[aria-selected="true"] { color: var(--accent); font-weight: 600; }
+  .tabbar svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+  .toast { position: fixed; left: 50%; bottom: calc(80px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); max-width: calc(100% - 32px); background: var(--ink); color: var(--bg); font-size: 14px; padding: 10px 16px; border-radius: 100px; opacity: 0; pointer-events: none; transition: opacity 0.2s; z-index: 20; }
+  .toast.show { opacity: 1; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .check .box, .toast { transition: none; }
+  }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <h1>Cut Log</h1>
+    <span class="today" id="today-label"></span>
+  </header>
+
+  <div class="note warn" id="offline" hidden>
+    <b>Not saving.</b> Sign in to claude.ai in Safari, then reopen this page. Anything entered now is lost when you close it.
+  </div>
+
+  <!-- TODAY -->
+  <section class="view" id="view-today">
+    <div class="hero" id="hero"></div>
+    <div class="notes" id="notes"></div>
+
+    <div class="block">
+      <h2 id="checks-head"></h2>
+      <div class="session" id="session"></div>
+      <div class="score" id="score"></div>
+      <div class="checks" id="checks"></div>
+    </div>
+
+    <div class="stats" id="stats"></div>
+
+    <div class="block">
+      <h2><span>The 59 days</span><small id="cal-sub"></small></h2>
+      <div id="cal"></div>
+      <div class="legend">
+        <span><i class="full"></i>Successful (4+ pts)</span>
+        <span><i class="part"></i>Under 4 pts</span>
+        <span><i class="miss"></i>None</span>
+        <span><i></i>Upcoming</span>
+      </div>
+    </div>
+
+    <details class="plan">
+      <summary>The plan</summary>
+      <h3>Every day</h3>
+      <dl>
+        <dt>Calories</dt><dd>1,900 to 2,000. Weigh the rice, count the gravy oil, log it.</dd>
+        <dt>Protein</dt><dd>150 g. Two whey shakes plus 200 g chicken at lunch and dinner.</dd>
+        <dt>Steps</dt><dd>6,000 to 7,000. Stairs, pacing on calls, a longer walk home.</dd>
+        <dt>Sleep</dt><dd>7 hours.</dd>
+        <dt>Liquids</dt><dd>No sugary drinks, juice or milk tea.</dd>
+      </dl>
+      <h3>Week</h3>
+      <dl>
+        <dt>Mon, Thu</dt><dd>Upper body</dd>
+        <dt>Tue, Fri</dt><dd>Lower body</dd>
+        <dt>Wed, Sat</dt><dd>Cardio, 30 minutes</dd>
+        <dt>Sun</dt><dd>Easy cardio or a long walk</dd>
+      </dl>
+      <h3>Rules</h3>
+      <p>The anchor slot is 4:00 to 5:30 pm. If it gets eaten, treadmill alone beats skipping.</p>
+      <p>Parotta and fried food only when they fit the calories, once a week at most.</p>
+      <p>At the two-week mark (Nov 17), if weight is not down about 1 kg, cut 150 kcal a day. Do not add cardio.</p>
+      <h3>Checkpoints</h3>
+      <dl>
+        <dt>Dec 1</dt><dd>Waist down 3 to 4 cm, weight about 77 kg.</dd>
+        <dt>Dec 31</dt><dd>74 to 75 kg, abs visible, about 15% body fat.</dd>
+      </dl>
+    </details>
+  </section>
+
+  <!-- BODY -->
+  <section class="view" id="view-body" hidden>
+    <div class="block" style="margin-top: 12px">
+      <h2>Weigh-in</h2>
+      <div class="form">
+        <div class="row">
+          <div class="field">
+            <label for="body-weight">Weight (kg)</label>
+            <input id="body-weight" type="number" inputmode="decimal" step="0.1" placeholder="80.0">
+          </div>
+          <div class="field">
+            <label for="body-waist">Waist at navel (cm)</label>
+            <input id="body-waist" type="number" inputmode="decimal" step="0.1" placeholder="90.0">
+          </div>
+        </div>
+        <button class="btn" id="body-submit" type="button">Save weigh-in</button>
+      </div>
+    </div>
+
+    <div class="block">
+      <h2><span>Pace</span></h2>
+      <div class="pace" id="pace"></div>
+      <div class="chart" id="chart"></div>
+      <div class="chart-key" id="chart-key" hidden><span>Solid: your weight</span><span>Dashed: the plan</span></div>
+    </div>
+
+    <div class="block">
+      <h2>Checkpoints</h2>
+      <div id="checkpoints"></div>
+    </div>
+
+    <div class="block">
+      <h2>History</h2>
+      <div class="scroll-x">
+        <table class="tbl">
+          <thead><tr><th>Date</th><th>Weight</th><th>Waist</th></tr></thead>
+          <tbody id="body-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- GLOW -->
+  <section class="view" id="view-glow" hidden>
+    <p class="g-sub">Tick what you did. Consistency beats perfection.</p>
+    <div class="hero g-top">
+      <div class="g-big"><span id="g-day">1</span><small id="g-week">Week 1</small></div>
+      <div class="g-info">
+        <b id="g-phase"></b>
+        <div class="g-streak" id="g-streak"></div>
+        <div class="rail good"><i id="g-fill" style="width:0"></i></div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h2 id="g-head"></h2>
+      <div id="g-back"></div>
+      <div class="checks" id="g-list"></div>
+      <p class="g-hint" id="g-hint"></p>
+    </div>
+
+    <div class="block">
+      <h2><span>10-week view</span><small>Tap a day to edit it</small></h2>
+      <div class="g-grid" id="g-grid"></div>
+      <div class="legend">
+        <span><i class="full"></i>All done</span>
+        <span><i class="part"></i>Partly</span>
+        <span><i></i>Upcoming</span>
+      </div>
+    </div>
+
+    <div class="block">
+      <h2>What to expect</h2>
+      <ul class="g-tl" id="g-tl"></ul>
+      <p class="g-hint">Everyone's skin is different. Marks and dark circles fade slowly, so judge by photos, not mirrors.</p>
+    </div>
+
+    <div class="block g-foot">
+      <label>Start date <input type="date" id="g-start"></label>
+      <button type="button" id="g-reset">Clear ticks</button>
+    </div>
+  </section>
+
+  <!-- PHOTOS -->
+  <section class="view" id="view-photos" hidden>
+    <div class="block" style="margin-top: 12px">
+      <h2><span>Progress photos</span><small id="photo-next"></small></h2>
+      <label class="photo-add" for="photo-input"><span id="photo-add-text">Add today's photo</span></label>
+      <input id="photo-input" type="file" accept="image/*" hidden>
+      <div class="photo-grid" id="photo-grid"></div>
+    </div>
+  </section>
+</div>
+
+<nav class="tabbar" aria-label="Sections">
+  <div class="in" role="tablist">
+    <button type="button" role="tab" data-tab="today" aria-selected="true">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/></svg>Today
+    </button>
+    <button type="button" role="tab" data-tab="body" aria-selected="false">
+      <svg viewBox="0 0 24 24"><path d="M3 17l5-6 4 3 6-8"/><path d="M3 21h18"/></svg>Body
+    </button>
+    <button type="button" role="tab" data-tab="glow" aria-selected="false">
+      <svg viewBox="0 0 24 24"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/><path d="M19 16v4M17 18h4"/></svg>Glow
+    </button>
+    <button type="button" role="tab" data-tab="photos" aria-selected="false">
+      <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="12" cy="12" r="3.2"/></svg>Photos
+    </button>
+  </div>
+</nav>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ---------- Plan ---------- */
+  var START_ISO = "2026-11-03";
+  var END_ISO = "2026-12-31";
+  var DEC1_ISO = "2026-12-01";
+  var START = parse(START_ISO);
+  var END = parse(END_ISO);
+  var TOTAL = diffDays(START, END) + 1;
+  var END_WEIGHT = 74.5;
+  var PHOTO_DUE = ["2026-11-03", "2026-11-17", "2026-12-01", "2026-12-15", "2026-12-31"];
+  /* Daily points: 4 or more is a successful day */
+  var PASS = 4;
+  var CHECKS = [
+    { key: "gym", label: "Gym sesh", pts: 1 },
+    { key: "run", label: "300 kcal run", pts: 1 },
+    { key: "creatine", label: "Creatine", pts: 0.5 },
+    { key: "whey", label: "Whey", pts: 1 },
+    { key: "sleep", label: "7 hr sleep", pts: 1 },
+    { key: "food", label: "No additional food", pts: 1 }
+  ];
+  var MAX_PTS = CHECKS.reduce(function (s, c) { return s + c.pts; }, 0);
+  var UPPER = { name: "Upper body", done: "Upper body done", note: "Bench, rows, overhead press, pull-ups. 4:00 to 5:30 pm." };
+  var LOWER = { name: "Lower body", done: "Lower body done", note: "Squat, deadlift or RDL, leg press, core. 4:00 to 5:30 pm." };
+  var CARDIO = { name: "Cardio", done: "Cardio done", note: "30 minutes on the treadmill." };
+  var EASY = { name: "Easy cardio", done: "Easy cardio done", note: "30 minutes, treadmill or a long walk." };
+  var SESSIONS = [EASY, UPPER, LOWER, CARDIO, UPPER, LOWER, CARDIO]; /* Sunday first, like Date.getDay() */
+  var CHECK_SVG = '<svg viewBox="0 0 16 16" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3.2 3L13 4.5"/></svg>';
+
+  /* ---------- State ---------- */
+  var state = { body: [], photos: [], daily: {} };
+  var db = null, assets = null;
+  var selected = null; /* ISO date being edited on the Today tab; null means today */
+  var writeChain = {};
+
+  /* ---------- Date helpers ---------- */
+  function pad(n) { return n < 10 ? "0" + n : "" + n; }
+  function iso(d) { return d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate()); }
+  function parse(s) { var p = s.split("-"); return new Date(+p[0], +p[1] - 1, +p[2]); }
+  function addDays(d, n) { return new Date(d.getFullYear(), d.getMonth(), d.getDate() + n); }
+  function diffDays(a, b) { return Math.round((new Date(b.getFullYear(), b.getMonth(), b.getDate()) - new Date(a.getFullYear(), a.getMonth(), a.getDate())) / 86400000); }
+  function todayISO() { return iso(new Date()); }
+  function fmt(d) { return d.toLocaleDateString(undefined, { month: "short", day: "numeric" }); }
+  function fmtLong(d) { return d.toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" }); }
+  function clampISO(s) { return s < START_ISO ? START_ISO : (s > END_ISO ? END_ISO : s); }
+  function nowISO() { return new Date().toISOString(); }
+
+  function $(id) { return document.getElementById(id); }
+  function esc(s) { var d = document.createElement("div"); d.textContent = s == null ? "" : String(s); return d.innerHTML; }
+  function toast(msg) {
+    var t = $("toast");
+    t.textContent = msg;
+    t.classList.add("show");
+    setTimeout(function () { t.classList.remove("show"); }, 2000);
+  }
+  function showView(name) {
+    ["today", "body", "glow", "photos"].forEach(function (v) {
+      $("view-" + v).hidden = v !== name;
+      document.querySelector('[data-tab="' + v + '"]').setAttribute("aria-selected", v === name ? "true" : "false");
+    });
+    window.scrollTo(0, 0);
+  }
+
+  /* ---------- Derived numbers ---------- */
+  function dayDoc(isoDate) { return state.daily[isoDate] || {}; }
+  function points(doc) {
+    var n = 0;
+    CHECKS.forEach(function (c) { if (doc[c.key]) n += c.pts; });
+    return n;
+  }
+  function fmtPts(n) { return n % 1 ? n.toFixed(1) : String(n); }
+  function isWin(doc) { return points(doc) >= PASS; }
+  function computeStats() {
+    var tISO = todayISO();
+    var t = parse(tISO);
+    var wins = 0, sumPast = 0, pastCount = 0, i, d, p;
+    for (i = 0; i < TOTAL; i++) {
+      d = addDays(START, i);
+      if (d > t) break;
+      p = points(dayDoc(iso(d)));
+      if (p >= PASS) wins++;
+      if (iso(d) !== tISO) { sumPast += p; pastCount++; }
+    }
+    var streak = 0;
+    var cursor = t > END ? END : t;
+    if (!isWin(dayDoc(iso(cursor)))) cursor = addDays(cursor, -1);
+    while (cursor >= START && isWin(dayDoc(iso(cursor)))) { streak++; cursor = addDays(cursor, -1); }
+    return { wins: wins, streak: streak, avg: pastCount ? sumPast / pastCount : null };
+  }
+
+  function bodySeries(field) {
+    var by = {};
+    state.body.forEach(function (b) {
+      if (b[field] != null && b.date >= START_ISO) { (by[b.date] = by[b.date] || []).push(b[field]); }
+    });
+    return Object.keys(by).sort().map(function (d) {
+      var a = by[d];
+      return { date: d, v: a.reduce(function (s, x) { return s + x; }, 0) / a.length };
+    });
+  }
+  function recentAvg(series) {
+    var cut = iso(addDays(parse(todayISO()), -6));
+    var r = series.filter(function (s) { return s.date >= cut; });
+    if (!r.length) return null;
+    return r.reduce(function (s, x) { return s + x.v; }, 0) / r.length;
+  }
+  function planAt(base, dISO) {
+    var endW = Math.min(END_WEIGHT, base.v - 0.5);
+    var total = Math.max(1, diffDays(parse(base.date), END));
+    var dd = Math.max(0, Math.min(total, diffDays(parse(base.date), parse(dISO))));
+    return base.v - (base.v - endW) * dd / total;
+  }
+  function paceStatus() {
+    var ws = bodySeries("weight");
+    if (!ws.length) return { state: "none" };
+    var base = ws[0];
+    var last = ws[ws.length - 1];
+    var tISO = todayISO();
+    var days = diffDays(parse(base.date), parse(tISO));
+    if (days < 7) return { state: "early", until: addDays(parse(base.date), 7) };
+    if (diffDays(parse(last.date), parse(tISO)) > 9) return { state: "stale" };
+    var cur = recentAvg(ws);
+    if (cur == null) cur = last.v;
+    var exp = planAt(base, tISO);
+    var gap = cur - exp;
+    return gap <= 0.3 ? { state: "on", cur: cur, exp: exp } : { state: "behind", cur: cur, exp: exp, gap: gap };
+  }
+  function photoStatus() {
+    var t = parse(todayISO());
+    var dueNow = false, next = null;
+    PHOTO_DUE.forEach(function (ds) {
+      var d = parse(ds);
+      var off = diffDays(d, t);
+      if (off >= 0 && off <= 3) {
+        var limit = iso(addDays(d, 3));
+        var done = state.photos.some(function (p) { return p.date >= ds && p.date <= limit; });
+        if (!done) dueNow = true;
+      }
+      if (off < 0 && !next) next = d;
+    });
+    return { dueNow: dueNow, next: next };
+  }
+
+  /* ---------- Render: Today ---------- */
+  function renderHero() {
+    var t = parse(todayISO());
+    var n, meta, pct;
+    if (t < START) {
+      n = diffDays(t, START);
+      meta = "<span>The cut starts <b>" + fmt(START) + "</b></span>";
+      pct = 0;
+    } else if (t > END) {
+      n = 0;
+      meta = "<span><b>Target date passed.</b> Final numbers are on the Body tab.</span>";
+      pct = 100;
+    } else {
+      n = diffDays(t, END);
+      var dayN = diffDays(START, t) + 1;
+      var toCp = diffDays(t, parse(DEC1_ISO));
+      var cp = toCp > 0 ? "Dec 1 checkpoint in <b>" + toCp + "</b> days" : (toCp === 0 ? "<b>Dec 1 checkpoint is today</b>" : "Dec 1 checkpoint passed");
+      meta = "<span>Day <b>" + dayN + "</b> of " + TOTAL + "</span><span>" + cp + "</span>";
+      pct = Math.round(dayN / TOTAL * 100);
+    }
+    $("hero").innerHTML =
+      '<div class="hero-label">' + (t < START ? "Days until the cut starts" : "Days to Dec 31") + "</div>" +
+      '<div class="hero-num">' + n + "</div>" +
+      '<div class="hero-meta">' + meta + "</div>" +
+      '<div class="rail"><i style="width:' + pct + '%"></i></div>';
+  }
+
+  function renderNotes() {
+    var t = todayISO();
+    var notes = [];
+    var hasBody = state.body.some(function (b) { return b.date >= START_ISO; });
+    if (t >= START_ISO && !hasBody) {
+      notes.push({ cls: "", html: "<b>Log your start numbers.</b> In the morning, before eating: weight, waist at the navel, and one front photo. Every target here is measured from them.", go: "body", action: "Open Body" });
+    }
+    var p = paceStatus();
+    if (p.state === "behind") {
+      notes.push({ cls: "warn", html: "<b>Behind pace by " + p.gap.toFixed(1) + " kg.</b> Cut 150 kcal a day. Do not add cardio.", go: "body", action: "See the line" });
+    } else if (hasBody && parse(t).getDay() === 2 && !state.body.some(function (b) { return b.date === t; })) {
+      notes.push({ cls: "", html: "<b>Weigh-in day.</b> Weight and waist, morning, before eating.", go: "body", action: "Log it" });
+    }
+    if (photoStatus().dueNow) {
+      notes.push({ cls: "", html: "<b>Progress photo due.</b> Front, same spot, same light.", go: "photos", action: "Open Photos" });
+    }
+    $("notes").innerHTML = notes.slice(0, 2).map(function (n) {
+      return '<div class="note ' + n.cls + '">' + n.html + '<button type="button" class="link" data-go="' + n.go + '">' + n.action + "</button></div>";
+    }).join("");
+  }
+
+  function renderChecks() {
+    var tISO = todayISO();
+    var sel = selected || clampISO(tISO);
+    var d = parse(sel);
+    var isToday = sel === tISO;
+    var canEdit = sel <= tISO && sel >= START_ISO && sel <= END_ISO;
+    var s = SESSIONS[d.getDay()];
+    var doc = dayDoc(sel);
+    var pts = points(doc), win = pts >= PASS;
+    $("checks-head").innerHTML = "<span>" + (isToday ? "Today" : esc(fmtLong(d))) + "</span><small>" + fmtPts(pts) + " of " + fmtPts(MAX_PTS) + " pts</small>";
+    $("score").innerHTML = '<div class="score-bar' + (win ? " ok" : "") + '"><i style="width:' + (pts / MAX_PTS * 100).toFixed(1) + '%"></i><b style="left:' + (PASS / MAX_PTS * 100).toFixed(1) + '%"></b></div>' +
+      '<span class="chip' + (win ? " good" : "") + '">' + (win ? "Successful day" : fmtPts(PASS - pts) + (PASS - pts === 1 ? " pt" : " pts") + " to go") + "</span>";
+    $("session").innerHTML = "<strong>" + esc(s.name) + "</strong><span>" + esc(s.note) + "</span>" +
+      (isToday ? "" : '<button type="button" class="link" data-today="1">Back to today</button>');
+    $("checks").innerHTML = CHECKS.map(function (c) {
+      return '<button type="button" class="check" data-key="' + c.key + '" aria-pressed="' + (doc[c.key] ? "true" : "false") + '"' + (canEdit ? "" : " disabled") + '><span class="box">' + CHECK_SVG + '</span><span class="label">' + esc(c.label) + '</span><span class="pts">+' + (c.pts === 0.5 ? "\u00BD" : c.pts) + "</span></button>";
+    }).join("");
+  }
+
+  function renderStats() {
+    var s = computeStats();
+    function stat(n, l) { return '<div class="stat"><div class="n">' + n + '</div><div class="l">' + l + "</div></div>"; }
+    $("stats").innerHTML = stat(s.streak, "Day streak") + stat(s.wins, "Successful days") + stat(s.avg == null ? "-" : s.avg.toFixed(1), "Avg points");
+  }
+
+  function renderCal() {
+    var tISO = todayISO();
+    var t = parse(tISO);
+    var firstMonday = addDays(START, -((START.getDay() + 6) % 7));
+    var weeks = Math.ceil((diffDays(firstMonday, END) + 1) / 7);
+    var months = "", cells = "", w, r, d, k, label, ds, n, cls, cur;
+    var selISO = selected || null;
+    for (w = 0; w < weeks; w++) {
+      label = w === 0 ? firstMonday.toLocaleDateString(undefined, { month: "short" }) : "";
+      for (k = 0; k < 7; k++) {
+        d = addDays(firstMonday, w * 7 + k);
+        if (d.getDate() === 1 && d >= START) label = d.toLocaleDateString(undefined, { month: "short" });
+      }
+      if (w === 0) label = START.toLocaleDateString(undefined, { month: "short" });
+      months += "<span>" + label + "</span>";
+      for (r = 0; r < 7; r++) {
+        d = addDays(firstMonday, w * 7 + r);
+        ds = iso(d);
+        if (d < START || d > END) { cells += '<i class="cell"></i>'; continue; }
+        if (d > t) { cells += '<i class="cell in"></i>'; continue; }
+        n = points(dayDoc(ds));
+        cur = ds === tISO;
+        cls = n >= PASS ? "full" : (n > 0 ? "part" : (cur ? "in" : "miss"));
+        if (cur) cls += " today";
+        if (selISO === ds) cls += " sel";
+        cells += '<button type="button" class="cell ' + cls + '" data-date="' + ds + '" aria-label="' + esc(fmtLong(d)) + ", " + fmtPts(n) + ' of ' + fmtPts(MAX_PTS) + ' points"></button>';
+      }
+    }
+    $("cal").innerHTML =
+      '<div class="cal"><div class="cal-days"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>' +
+      '<div class="cal-main"><div class="cal-months" style="grid-template-columns:repeat(' + weeks + ',1fr)">' + months + "</div>" +
+      '<div class="cal-grid" style="grid-template-columns:repeat(' + weeks + ',1fr)">' + cells + "</div></div></div>";
+    var elapsed = Math.max(0, Math.min(TOTAL, diffDays(START, t) + 1));
+    $("cal-sub").textContent = "Tap a past day to fix it. " + elapsed + " of " + TOTAL + " days in.";
+  }
+
+  function renderToday() {
+    $("today-label").textContent = fmtLong(new Date());
+    renderHero(); renderNotes(); renderChecks(); renderStats(); renderCal();
+  }
+
+  /* ---------- Render: Body ---------- */
+  function renderChart() {
+    var host = $("chart");
+    var ws = bodySeries("weight");
+    $("chart-key").hidden = !ws.length;
+    if (!ws.length) { host.innerHTML = '<div class="empty">Your weight line shows up here after the first weigh-in.</div>'; return; }
+    var W = 340, H = 176, L = 34, R = 12, T = 14, B = 28;
+    var span = diffDays(START, END);
+    var base = ws[0];
+    var endW = Math.min(END_WEIGHT, base.v - 0.5);
+    var vals = ws.map(function (x) { return x.v; }).concat([endW]);
+    var lo = Math.floor(Math.min.apply(null, vals)) - 1;
+    var hi = Math.ceil(Math.max.apply(null, vals)) + 1;
+    function X(ds) { var f = diffDays(START, parse(ds)) / span; f = Math.max(0, Math.min(1, f)); return L + (W - L - R) * f; }
+    function Y(v) { return T + (H - T - B) * (hi - v) / (hi - lo); }
+    var mid = Math.round((lo + hi) / 2);
+    var s = '<svg viewBox="0 0 ' + W + " " + H + '" role="img" aria-label="Weight compared with the plan">';
+    [lo, mid, hi].forEach(function (v) {
+      s += '<line class="grid" x1="' + L + '" x2="' + (W - R) + '" y1="' + Y(v).toFixed(1) + '" y2="' + Y(v).toFixed(1) + '"/>';
+      s += '<text class="axis" x="' + (L - 6) + '" y="' + (Y(v) + 4).toFixed(1) + '" text-anchor="end">' + v + "</text>";
+    });
+    var x1 = X(DEC1_ISO).toFixed(1);
+    s += '<line class="mark" x1="' + x1 + '" x2="' + x1 + '" y1="' + T + '" y2="' + (H - B) + '"/>';
+    s += '<text class="axis" x="' + L + '" y="' + (H - 8) + '" text-anchor="start">' + esc(fmt(START)) + "</text>";
+    s += '<text class="axis" x="' + x1 + '" y="' + (H - 8) + '" text-anchor="middle">' + esc(fmt(parse(DEC1_ISO))) + "</text>";
+    s += '<text class="axis" x="' + (W - R) + '" y="' + (H - 8) + '" text-anchor="end">' + esc(fmt(END)) + "</text>";
+    s += '<line class="plan-line" x1="' + X(base.date).toFixed(1) + '" y1="' + Y(base.v).toFixed(1) + '" x2="' + X(END_ISO).toFixed(1) + '" y2="' + Y(endW).toFixed(1) + '"/>';
+    if (ws.length > 1) {
+      s += '<polyline class="actual" points="' + ws.map(function (p) { return X(p.date).toFixed(1) + "," + Y(p.v).toFixed(1); }).join(" ") + '"/>';
+    }
+    ws.forEach(function (p, i) {
+      var last = i === ws.length - 1;
+      s += '<circle class="' + (last ? "dot-last" : "dot") + '" cx="' + X(p.date).toFixed(1) + '" cy="' + Y(p.v).toFixed(1) + '" r="' + (last ? 5 : 3.5) + '"/>';
+    });
+    var lp = ws[ws.length - 1];
+    var lx = X(lp.date), ly = Y(lp.v);
+    s += '<text class="val" x="' + lx.toFixed(1) + '" y="' + (ly < T + 18 ? ly + 20 : ly - 10).toFixed(1) + '" text-anchor="' + (lx > W - 44 ? "end" : "middle") + '">' + lp.v.toFixed(1) + "</text>";
+    s += "</svg>";
+    host.innerHTML = s;
+  }
+
+  function renderBody() {
+    var p = paceStatus();
+    var msg;
+    if (p.state === "none") msg = '<span class="chip warn">Waiting</span> Log your start numbers and every target below is measured from them.';
+    else if (p.state === "early") msg = '<span class="chip">Tracking</span> First pace check on ' + esc(fmt(p.until)) + ".";
+    else if (p.state === "stale") msg = '<span class="chip warn">Weigh in</span> Your last weight is more than a week old.';
+    else if (p.state === "on") msg = '<span class="chip good">On pace</span> 7-day average ' + p.cur.toFixed(1) + " kg, plan says " + p.exp.toFixed(1) + " kg today.";
+    else msg = '<span class="chip warn">Behind</span> 7-day average ' + p.cur.toFixed(1) + " kg, plan says " + p.exp.toFixed(1) + " kg today. Cut 150 kcal a day and do not add cardio.";
+    $("pace").innerHTML = '<p style="margin:0 0 12px;font-size:14px">' + msg + "</p>";
+
+    renderChart();
+
+    var ws = bodySeries("weight"), wa = bodySeries("waist");
+    var base = ws[0] || null, baseWaist = wa[0] || null;
+    var cur = null;
+    if (base) { cur = recentAvg(ws); if (cur == null) cur = ws[ws.length - 1].v; }
+    var hasPhoto = state.photos.some(function (x) { return x.date >= START_ISO; });
+    var tNow = parse(todayISO());
+    function pct(from, now, to) {
+      var denom = from - to;
+      if (denom < 0.1) return now <= to ? 100 : 0;
+      return Math.max(0, Math.min(100, (from - now) / denom * 100));
+    }
+    var startBody = base
+      ? base.v.toFixed(1) + " kg" + (baseWaist ? ", " + baseWaist.v.toFixed(1) + " cm waist" : "") + (hasPhoto ? ", photo saved" : ", photo still to add")
+      : "Weight, waist at the navel, one front photo. Morning, before eating.";
+    var rows = '<div class="cp"><div class="cp-head"><b>Start numbers</b><span>' + (base ? '<span class="chip good">Logged</span>' : '<span class="chip warn">Not yet</span>') + '</span></div><div class="cp-body">' + esc(startBody) + "</div></div>";
+
+    var t1 = base ? planAt(base, DEC1_ISO) : 77;
+    var toCp = diffDays(tNow, parse(DEC1_ISO));
+    var waistLine = baseWaist ? "Waist " + (baseWaist.v - 4).toFixed(1) + " to " + (baseWaist.v - 3).toFixed(1) + " cm" : "Waist down 3 to 4 cm";
+    rows += '<div class="cp"><div class="cp-head"><b>Dec 1 checkpoint</b><span>' + (toCp > 0 ? "in " + toCp + " days" : (toCp === 0 ? "today" : "passed")) + '</span></div><div class="cp-body">Weight about ' + t1.toFixed(1) + " kg. " + esc(waistLine) + ".</div>" +
+      (base ? '<div class="bar"><i style="width:' + pct(base.v, cur, t1).toFixed(0) + '%"></i></div>' : "") + "</div>";
+
+    var endT = base ? Math.min(END_WEIGHT, base.v - 0.5) : END_WEIGHT;
+    var toEnd = diffDays(tNow, END);
+    rows += '<div class="cp"><div class="cp-head"><b>Dec 31 target</b><span>' + (toEnd > 0 ? "in " + toEnd + " days" : (toEnd === 0 ? "today" : "passed")) + '</span></div><div class="cp-body">74 to 75 kg, abs visible, about 15% body fat.' + (cur != null ? " Now " + cur.toFixed(1) + " kg." : "") + "</div>" +
+      (base ? '<div class="bar"><i style="width:' + pct(base.v, cur, endT).toFixed(0) + '%"></i></div>' : "") + "</div>";
+    $("checkpoints").innerHTML = rows;
+
+    var list = state.body.slice().sort(function (a, b) { return (a.date < b.date) ? 1 : (a.date > b.date ? -1 : ((a.createdAt || "") < (b.createdAt || "") ? 1 : -1)); }).slice(0, 20);
+    $("body-tbody").innerHTML = list.length ? list.map(function (r) {
+      return "<tr><td>" + esc(fmt(parse(r.date))) + "</td><td>" + (r.weight != null ? r.weight.toFixed(1) + " kg" : "-") + "</td><td>" + (r.waist != null ? r.waist.toFixed(1) + " cm" : "-") + "</td></tr>";
+    }).join("") : '<tr><td colspan="3" class="empty">No weigh-ins yet.</td></tr>';
+  }
+
+  /* ---------- Render: Photos ---------- */
+  function renderPhotos() {
+    var rows = state.photos.slice().sort(function (a, b) { return a.date < b.date ? 1 : -1; });
+    var grid = $("photo-grid");
+    grid.innerHTML = rows.length ? rows.map(function (p) {
+      return '<div class="photo-tile"><img src="' + esc(p.url) + '" alt="Progress photo, ' + esc(fmt(parse(p.date))) + '" loading="lazy"><div class="pdate">' + esc(fmt(parse(p.date))) + "</div></div>";
+    }).join("") : "";
+    var ps = photoStatus();
+    $("photo-next").textContent = ps.dueNow ? "Due now" : (ps.next ? "Next: " + fmt(ps.next) : "");
+  }
+
+  function renderAll() { renderToday(); renderBody(); renderGlow(); renderPhotos(); }
+
+  /* ---------- Glow tracker ---------- */
+  var GLOW_KEY = "glow-tracker-v2";
+  var G_TS = "2026-10-20", G_TE = "2026-12-20"; /* tretinoin course */
+  var glow = { start: "2026-10-15", done: {} };
+  var gSel = null; /* ISO date being edited on the Glow tab; null means today */
+  var gClearTimer = null;
+  try {
+    var gRaw = localStorage.getItem(GLOW_KEY);
+    if (gRaw) {
+      var gObj = JSON.parse(gRaw);
+      if (gObj && gObj.start) glow.start = gObj.start;
+      if (gObj && gObj.done) glow.done = gObj.done;
+    }
+  } catch (e) {}
+  var G_TL = [
+    [1, "Oct 15-19: base routine", "Moisturizer, sunscreen and eye serum. Skin settles and feels less greasy."],
+    [6, "Oct 20-Nov 16: tretinoin ramp-up", "Dryness, flaking or mild purging are normal. No visible glow yet, so be patient."],
+    [34, "Nov 17-Dec 14: skin looks fresher", "Smoother texture, fewer bumps, less dullness. Early fading of marks."],
+    [62, "Dec 15-20: end of first course", "About 9 weeks in. Brighter, more even tone. Under-eyes change slowly."],
+    [68, "After Dec 20: keep going", "Marks keep improving through months 4-6. Ask your doctor about continuing."]
+  ];
+
+  function gSaveLocal() { try { localStorage.setItem(GLOW_KEY, JSON.stringify(glow)); } catch (e) {} }
+  function gAdd(s, n) { return iso(addDays(parse(s), n)); }
+  function gDayNum(d) { return diffDays(parse(glow.start), parse(d)) + 1; }
+  function gPhase(n) { var p = G_TL[0]; for (var i = 0; i < G_TL.length; i++) if (n >= G_TL[i][0]) p = G_TL[i]; return p; }
+  function gTretOn(d) {
+    if (d < G_TS || d > G_TE) return false;
+    var k = diffDays(parse(G_TS), parse(d));
+    if (k < 14) return k % 7 === 0 || k % 7 === 3;
+    if (k < 28) return k % 7 === 0 || k % 7 === 2 || k % 7 === 4;
+    return (k - 28) % 2 === 0;
+  }
+  function gTasks(n, d) {
+    var t = [
+      { id: "am1", g: "Morning", t: "Wash face with niacinamide foam", req: 1 },
+      { id: "ey", g: "Morning", t: "Caffeine under-eye serum, tap in gently", req: 1 },
+      { id: "am2", g: "Morning", t: "Deconstruct oil-free moisturizer", req: 1 },
+      { id: "am3", g: "Morning", t: "Reequil sunscreen, 2 finger-lengths on face and neck", req: 1 },
+      { id: "mid", g: "Daytime", t: "Rinse sweat, pat dry, reapply sunscreen", req: 1 },
+      { id: "pm1", g: "Night", t: "Wash face with niacinamide foam", req: 1 }
+    ];
+    if (gTretOn(d)) t.push({ id: "tr", g: "Night", t: "Tretinoin, pea-sized for the whole face, on fully dry skin. Keep off eyelids and mouth corners", req: 1 });
+    t.push({ id: "pm2", g: "Night", t: "Moisturizer", req: 1 });
+    t.push({ id: "sl", g: "Habits", t: "Sleep 7+ hours", req: 0 });
+    t.push({ id: "tc", g: "Habits", t: "No picking at marks, hair kept off forehead", req: 0 });
+    if (parse(d).getDay() === 0) t.push({ id: "wk", g: "Weekly", t: "Wash pillowcase and towel", req: 0 });
+    if ((n - 1) % 14 === 0 || d === G_TS) t.push({ id: "ph", g: "Weekly", t: "Progress photo: same light, no filter", req: 0 });
+    return t;
+  }
+  function gRatio(d) {
+    var n = gDayNum(d);
+    if (n < 1) return 0;
+    var req = gTasks(n, d).filter(function (x) { return x.req; });
+    var dn = glow.done[d] || {}, c = 0;
+    req.forEach(function (x) { if (dn[x.id]) c++; });
+    return req.length ? c / req.length : 0;
+  }
+
+  function renderGlow() {
+    var tISO = todayISO();
+    var n = Math.max(gDayNum(tISO), 1);
+    var sel = gSel || tISO;
+    var sn = gDayNum(sel);
+    $("g-day").textContent = n;
+    $("g-week").textContent = "Week " + Math.ceil(n / 7);
+    $("g-phase").textContent = gPhase(n)[1];
+
+    var st = 0, d = tISO;
+    if (gRatio(d) < 1) d = gAdd(d, -1);
+    while (gDayNum(d) >= 1 && gRatio(d) === 1) { st++; d = gAdd(d, -1); }
+    $("g-streak").textContent = st ? st + " day streak" : "Tick everything today to start a streak";
+    $("g-fill").style.width = Math.round(gRatio(sel) * 100) + "%";
+
+    var tasks = gTasks(sn, sel), dn = glow.done[sel] || {};
+    var req = tasks.filter(function (x) { return x.req; });
+    var got = req.filter(function (x) { return dn[x.id]; }).length;
+    $("g-head").innerHTML = "<span>" + (sel === tISO ? "Today" : esc(fmtLong(parse(sel))) + " (Day " + sn + ")") + "</span><small>" + got + " of " + req.length + " core</small>";
+    $("g-back").innerHTML = gSel ? '<button type="button" class="link" data-gtoday="1">Back to today</button>' : "";
+
+    var h = "", g = "";
+    tasks.forEach(function (x) {
+      if (x.g !== g) { g = x.g; h += '<div class="g-grp">' + esc(g) + "</div>"; }
+      h += '<button type="button" class="check g" data-gid="' + x.id + '" aria-pressed="' + (dn[x.id] ? "true" : "false") + '"><span class="box">' + CHECK_SVG + '</span><span class="label">' + esc(x.t) + (x.req ? "" : '<span class="g-opt">optional</span>') + "</span></button>";
+    });
+    $("g-list").innerHTML = h;
+
+    var hint;
+    if (sel < G_TS) hint = "Tretinoin starts Oct 20. Until then: base routine only. Get it prescribed before then.";
+    else if (sel > G_TE) hint = "Tretinoin course ended Dec 20. Check with your doctor about continuing.";
+    else if (!gTretOn(sel)) hint = "Tretinoin rest night: cleanser and moisturizer only.";
+    else hint = "Tretinoin night. Wait until your face is fully dry, use a pea-sized amount, moisturize after. Skip it if skin is red, burning or peeling.";
+    $("g-hint").textContent = hint;
+
+    var gr = "", i, dd, rt, fut, cls;
+    for (i = 1; i <= 70; i++) {
+      dd = gAdd(glow.start, i - 1);
+      rt = gRatio(dd);
+      fut = dd > tISO;
+      cls = (fut ? "x " : "") + (rt === 1 ? "f " : (rt > 0 ? "p " : "")) + (dd === tISO ? "t " : "") + (gSel && dd === gSel ? "s" : "");
+      gr += '<button type="button" class="gcell ' + cls + '" data-gd="' + dd + '" aria-label="Day ' + i + '"' + (fut ? " disabled" : "") + ">" + i + "</button>";
+    }
+    $("g-grid").innerHTML = gr;
+
+    var tl = "";
+    G_TL.forEach(function (p, k) {
+      var nx = G_TL[k + 1] ? G_TL[k + 1][0] : 1e9;
+      var c = n >= p[0] && n < nx ? "now" : (n >= nx ? "past" : "");
+      tl += '<li class="' + c + '"><b>' + esc(p[1]) + "</b><span>" + esc(p[2]) + "</span></li>";
+    });
+    $("g-tl").innerHTML = tl;
+    if (document.activeElement !== $("g-start")) $("g-start").value = glow.start;
+  }
+
+  function gSync(date) {
+    if (!db) return;
+    var body = { date: date, done: JSON.parse(JSON.stringify(glow.done[date] || {})), updatedAt: nowISO() };
+    var ref = db.doc("glow/" + date);
+    var k = "glow" + date;
+    writeChain[k] = (writeChain[k] || Promise.resolve()).then(function () { return ref.set(body); }).catch(function () { toast("Could not save that tick. Try again."); });
+  }
+  function gToggle(id) {
+    var sel = gSel || todayISO();
+    if (sel > todayISO()) return;
+    var dn = Object.assign({}, glow.done[sel] || {});
+    dn[id] = !dn[id];
+    glow.done[sel] = dn;
+    gSaveLocal();
+    renderGlow();
+    gSync(sel);
+  }
+
+  $("g-start").addEventListener("change", function (e) {
+    var v = e.target.value;
+    if (!v) return;
+    glow.start = v;
+    gSel = null;
+    gSaveLocal();
+    renderGlow();
+    if (db) db.collection("glowcfg").add({ start: v, createdAt: nowISO() }).catch(function () { toast("Could not save the start date."); });
+  });
+  $("g-reset").addEventListener("click", function () {
+    var b = $("g-reset");
+    if (!gClearTimer) {
+      b.textContent = "Tap again to clear";
+      gClearTimer = setTimeout(function () { gClearTimer = null; b.textContent = "Clear ticks"; }, 3000);
+      return;
+    }
+    clearTimeout(gClearTimer);
+    gClearTimer = null;
+    b.textContent = "Clear ticks";
+    var dates = Object.keys(glow.done);
+    glow.done = {};
+    gSaveLocal();
+    gSel = null;
+    renderGlow();
+    dates.forEach(gSync);
+  });
+
+  /* ---------- Actions ---------- */
+  function toggleCheck(key) {
+    var tISO = todayISO();
+    var sel = selected || clampISO(tISO);
+    if (sel > tISO || sel < START_ISO || sel > END_ISO) return;
+    var doc = Object.assign({}, state.daily[sel] || {});
+    doc[key] = !doc[key];
+    doc.date = sel;
+    doc.updatedAt = nowISO();
+    state.daily[sel] = doc;
+    renderToday();
+    if (!db) return;
+    var body = JSON.parse(JSON.stringify(doc));
+    var ref = db.doc("daily/" + sel);
+    writeChain[sel] = (writeChain[sel] || Promise.resolve()).then(function () { return ref.set(body); }).catch(function () { toast("Could not save that check. Try again."); });
+  }
+
+  document.addEventListener("click", function (e) {
+    var el = e.target.closest ? e.target.closest("[data-key],[data-date],[data-go],[data-today],[data-tab],[data-gid],[data-gd],[data-gtoday]") : null;
+    if (!el) return;
+    if (el.hasAttribute("data-key")) { toggleCheck(el.getAttribute("data-key")); return; }
+    if (el.hasAttribute("data-gid")) { gToggle(el.getAttribute("data-gid")); return; }
+    if (el.hasAttribute("data-gd")) {
+      var gds = el.getAttribute("data-gd");
+      if (gds <= todayISO()) { gSel = gds === todayISO() ? null : gds; renderGlow(); }
+      return;
+    }
+    if (el.hasAttribute("data-gtoday")) { gSel = null; renderGlow(); return; }
+    if (el.hasAttribute("data-date")) {
+      var ds = el.getAttribute("data-date");
+      selected = ds === todayISO() ? null : ds;
+      renderToday();
+      return;
+    }
+    if (el.hasAttribute("data-today")) { selected = null; renderToday(); return; }
+    if (el.hasAttribute("data-go")) { showView(el.getAttribute("data-go")); return; }
+    if (el.hasAttribute("data-tab")) { showView(el.getAttribute("data-tab")); }
+  });
+
+  $("body-submit").addEventListener("click", function () {
+    var weight = parseFloat($("body-weight").value);
+    var waist = parseFloat($("body-waist").value);
+    if (isNaN(weight) && isNaN(waist)) { toast("Enter a weight or a waist"); return; }
+    if ((!isNaN(weight) && (weight < 30 || weight > 200)) || (!isNaN(waist) && (waist < 40 || waist > 200))) { toast("Check the numbers. Weight is in kg, waist in cm."); return; }
+    var entry = { date: todayISO(), createdAt: nowISO() };
+    if (!isNaN(weight)) entry.weight = weight;
+    if (!isNaN(waist)) entry.waist = waist;
+    $("body-weight").value = "";
+    $("body-waist").value = "";
+    if (db) {
+      db.collection("bodylogs").add(entry).then(function () { toast("Weigh-in saved"); }).catch(function () { toast("Could not save. Try again."); });
+    } else {
+      state.body.push(entry); renderAll(); toast("Weigh-in shown here only");
+    }
+  });
+
+  $("photo-input").addEventListener("change", function (e) {
+    var file = e.target.files && e.target.files[0];
+    if (!file) return;
+    var label = $("photo-add-text");
+    function reset() { label.textContent = "Add today's photo"; $("photo-input").value = ""; }
+    if (db && assets) {
+      label.textContent = "Uploading...";
+      assets.upload(file).then(function (res) {
+        return db.collection("photos").add({ date: todayISO(), assetId: res.id, createdAt: nowISO() });
+      }).then(function () { toast("Photo saved"); reset(); })
+        .catch(function () { toast("Upload failed. Try again."); reset(); });
+    } else {
+      var reader = new FileReader();
+      reader.onload = function () {
+        state.photos.push({ date: todayISO(), url: reader.result, createdAt: nowISO() });
+        renderAll(); toast("Photo shown here only"); reset();
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+
+  document.addEventListener("visibilitychange", function () { if (!document.hidden) renderAll(); });
+
+  /* ---------- Data ---------- */
+  function listen(name, order, limit, apply) {
+    db.collection(name).orderBy(order, "desc").limit(limit).onSnapshot(function (snap) {
+      var rows = [];
+      snap.docs.forEach(function (d) { var v = d.data(); if (v) rows.push(v); });
+      apply(rows);
+      renderAll();
+    }, function () { /* keep whatever is on screen */ });
+  }
+
+  async function init() {
+    try { db = await window.claude.use("db"); } catch (e) { db = null; }
+    try { assets = await window.claude.use("assets"); } catch (e) { assets = null; }
+    if (!db) { $("offline").hidden = false; renderAll(); return; }
+    listen("glow", "date", 120, function (rows) {
+      rows.forEach(function (r) { if (r.date) glow.done[r.date] = r.done || {}; });
+      gSaveLocal();
+    });
+    listen("glowcfg", "createdAt", 1, function (rows) {
+      if (rows[0] && rows[0].start) { glow.start = rows[0].start; gSaveLocal(); }
+    });
+    listen("bodylogs", "createdAt", 300, function (rows) { state.body = rows; });
+    listen("photos", "createdAt", 100, function (rows) {
+      state.photos = rows.map(function (d) { return { date: d.date, url: d.assetId ? "/_blob/" + d.assetId : d.url, createdAt: d.createdAt }; });
+    });
+    listen("daily", "date", 120, function (rows) {
+      var m = {};
+      rows.forEach(function (d) { if (d.date) m[d.date] = d; });
+      state.daily = m;
+    });
+  }
+
+  renderAll();
+  if (window.claude && typeof window.claude.use === "function") { init(); }
+})();
+</script>
+
+</body></html>
